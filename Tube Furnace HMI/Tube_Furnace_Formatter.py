@@ -29,7 +29,8 @@ def convert(csv_in_path, csv_out_path):
 	}
 
 	fields_out = [
-		'Date',
+		'Timestamp',
+		'Timestamp millis',
 		'Temperature left (°C)',
 		'Temperature setpoint left (°C)',
 		'Temperature center (°C)',
@@ -79,7 +80,9 @@ def convert(csv_in_path, csv_out_path):
 			if field_out in parsed:	#If an output field is just a direct copy of the input field
 				row_out[field_out] = parsed[field_out]
 
-		row_out['Date'] = date_full.strftime('%Y-%m-%d %H:%M:%S')	#Use a format that plays nice with Excel.
+		row_out['Timestamp'] = date_full.strftime('%Y-%m-%d %H:%M:%S')	#Use a format that plays nice with Excel.
+
+		row_out['Timestamp millis'] = date_full.timestamp() * 1000 #Linux epoch millis
 
 		#print(row_out)
 

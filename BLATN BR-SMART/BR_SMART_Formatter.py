@@ -28,6 +28,7 @@ def convert(txtpath, csvpath):
 
 	csv_fields = [	#Fields in the output CSV
 		'Timestamp',
+		'Timestamp millis',
 		'PM1.0 (ug-m^-3)',
 		'PM2.5 (ug-m^-3)',
 		'PM10 (ug-m^-3)',
@@ -79,6 +80,8 @@ def convert(txtpath, csvpath):
 					pass 	#The requested field doesn't exist in the source TXT file, so it will need to be manually added below
 
 			row['Timestamp'] = dt.strftime('%Y-%m-%d %H:%M:%S')
+
+			row['Timestamp millis'] = dt.timestamp() * 1000 	#Linux epoch milliseconds
 
 			print(row)
 
