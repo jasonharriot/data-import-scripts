@@ -11,34 +11,34 @@ def read_file_lines(path):
 
 def convert(txtpath, csvpath):
 	fields = {	#Fields and matching regex to parse from TXT file
-		'Date': 		r'Date:([0-9]*) ',
-		'Time': 		r'Time:([0-9]*) ',
-		'PM1.0': 		r'PM1\.0:([0-9]*) ',
-		'PM2.5':		r'PM2\.5:([0-9]*) ',
-		'PM10':			r'PM10:([0-9]*) ',
-		'HCHO':			r'HCHO:([0-9]*\.[0-9]*) ',
-		'TVOC':			r'TVOC:([0-9]*\.[0-9]*) ',
-		'Dust > 0.3':	r'>0\.3DustNum:([0-9]*)',
-		'Dust > 0.5':	r'>0\.5DustNum:([0-9]*)',
-		'Dust > 1.0':	r'>1\.0DustNum:([0-9]*)',
-		'Dust > 2.5':	r'>2\.5DustNum:([0-9]*)',
-		'Dust > 5.0':	r'>5.0DustNum:([0-9]*)',
-		'Dust > 10':	r'>10DustNum:([0-9]*)'
+		'Date': 				r'Date:([0-9]*) ',
+		'Time': 				r'Time:([0-9]*) ',
+		'PM1.0 (ug-m^-3)': 		r'PM1\.0:([0-9]*) ',
+		'PM2.5 (ug-m^-3)':		r'PM2\.5:([0-9]*) ',
+		'PM10 (ug-m^-3)':		r'PM10:([0-9]*) ',
+		'HCHO (mg-m^-3)':		r'HCHO:([0-9]*\.[0-9]*) ',
+		'TVOC (mg-m^-3)':		r'TVOC:([0-9]*\.[0-9]*) ',
+		'Dust > 0.3 (L^-1)':	r'>0\.3DustNum:([0-9]*)',
+		'Dust > 0.5 (L^-1)':	r'>0\.5DustNum:([0-9]*)',
+		'Dust > 1.0 (L^-1)':	r'>1\.0DustNum:([0-9]*)',
+		'Dust > 2.5 (L^-1)':	r'>2\.5DustNum:([0-9]*)',
+		'Dust > 5.0 (L^-1)':	r'>5.0DustNum:([0-9]*)',
+		'Dust > 10 (L^-1)':		r'>10DustNum:([0-9]*)'
 	}
 
 	csv_fields = [	#Fields in the output CSV
 		'Timestamp',
-		'PM1.0',
-		'PM2.5',
-		'PM10',
-		'HCHO',
-		'TVOC',
-		'Dust > 0.3',
-		'Dust > 0.5',
-		'Dust > 1.0',
-		'Dust > 2.5',
-		'Dust > 5.0',
-		'Dust > 10'
+		'PM1.0 (ug-m^-3)',
+		'PM2.5 (ug-m^-3)',
+		'PM10 (ug-m^-3)',
+		'HCHO (mg-m^-3)',
+		'TVOC (mg-m^-3)',
+		'Dust > 0.3 (L^-1)',
+		'Dust > 0.5 (L^-1)',
+		'Dust > 1.0 (L^-1)',
+		'Dust > 2.5 (L^-1)',
+		'Dust > 5.0 (L^-1)',
+		'Dust > 10 (L^-1)'
 	]
 
 	if os.path.isfile(csvpath):
@@ -74,7 +74,7 @@ def convert(txtpath, csvpath):
 
 			for csv_field in csv_fields:
 				if csv_field in parsed_fields:
-					row[csv_field] = parsed_fields[csv_field]
+					row[csv_field] = float(parsed_fields[csv_field])
 				else:
 					pass 	#The requested field doesn't exist in the source TXT file, so it will need to be manually added below
 
